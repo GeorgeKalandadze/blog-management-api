@@ -25,3 +25,7 @@ Route::get('/posts/edit', function () {
     return view('post.edit');
 })->name('posts.edit');
 
+Route::get('/posts/show', function () {
+    return view('post.show');
+})->name('posts.show');
+

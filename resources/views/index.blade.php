@@ -39,7 +39,7 @@
                 <td class="px-6 py-4 whitespace-nowrap">{{ $post['description'] }}</td>
                 <td class="px-6 py-4 whitespace-nowrap">
                     <div class="flex items-center space-x-4">
-                        <a href="#" class="px-3 py-1 bg-indigo-600 text-white rounded hover:bg-indigo-700">Detail</a>
+                        <a href="{{ route('posts.show') }}" class="px-3 py-1 bg-indigo-600 text-white rounded hover:bg-indigo-700">Detail</a>
                         <a href="{{ route('posts.create') }}" class="px-3 py-1 bg-indigo-600 text-white rounded hover:bg-indigo-700">Create</a>
                         <a href="{{ route('posts.edit') }}" class="px-3 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600">Edit</a>
                         <form action="#" method="POST" onsubmit="return confirm('Delete?')">
