@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,19 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::redirect('/', '/posts');
 
-Route::get('/posts/create', function () {
-    return view('post.create');
-})->name('posts.create');
-
-Route::get('/posts/edit', function () {
-    return view('post.edit');
-})->name('posts.edit');
-
-Route::get('/posts/show', function () {
-    return view('post.show');
-})->name('posts.show');
+Route::resource('/posts', PostController::class);
 
