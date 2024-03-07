@@ -2,16 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\PostService;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
+
+    public function __construct(public PostService $postService)
+    {
+
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('index');
+        $posts = $this->postService->getAll();
+        return view('index', compact('posts'));
     }
 
     /**
@@ -33,10 +40,10 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $post)
+    public function show($id)
     {
-        // Logic to retrieve the post with the provided ID
-        return view('post.show');
+        $post = $this->postService->getById($id);
+        return view('post.show', compact('post'));
     }
 
     /**
