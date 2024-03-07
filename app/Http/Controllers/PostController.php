@@ -34,7 +34,8 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-
+        $this->postService->store($request->all());
+        return response()->json('post is created');
     }
 
     /**
@@ -67,6 +68,7 @@ class PostController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $this->postService->delete($id);
+        return response()->json('post deleted successfully');
     }
 }

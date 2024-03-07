@@ -1,10 +1,19 @@
 @extends('layouts.layout')
 
 @section('content')
-    <div class="flex items-center justify-center mb-8">
-        <h1 class="text-3xl font-semibold">List Post</h1>
-    </div>
-    <hr class="mb-8" />
+    <nav class="bg-gray-800 shadow-lg">
+        <div class="mx-auto px-4 sm:px-6 lg:px-6">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="hidden space-x-4 sm:-my-px sm:flex">
+                        <a href="{{ route('posts.index') }}" class="text-gray-300 hover:bg-gray-700 hover:text-white  py-2 rounded-md text-sm font-medium">Home</a>
+                        <a href="{{ route('posts.create') }}" class="text-gray-300 hover:bg-gray-700 hover:text-white  py-2 rounded-md text-sm font-medium">Create Post</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
 
     <table class="min-w-full divide-y divide-gray-200 w-full">
         <thead class="bg-gray-100 ">
@@ -24,9 +33,7 @@
                 <td class="px-6 py-4 whitespace-nowrap">
                     <div class="flex items-center space-x-4">
                         <a href="{{ route('posts.show', ['post' => $post['id']]) }}" class="px-3 py-1 bg-gray-500 text-white rounded hover:bg-indigo-700">Detail</a>
-                        <a href="{{ route('posts.create') }}" class="px-3 py-1 bg-indigo-600 text-white rounded hover:bg-indigo-700">Create</a>
-                        <a href="{{ route('posts.edit', ['post' => $post['id']]) }}" class="px-3 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600">Edit</a>
-                        <form action="#" method="POST" onsubmit="return confirm('Delete?')">
+                        <form action="{{ route('posts.destroy', ['post' => $post['id']]) }}" method="POST" onsubmit="return confirm('Delete?')">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700">Delete</button>
