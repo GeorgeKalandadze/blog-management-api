@@ -1,5 +1,6 @@
 <?php
 namespace App\Repositories;
+use App\Models\Post;
 use App\Repositories\Contracts\PostsRepositoryContract;
 use Illuminate\Support\Facades\Http;
 
@@ -8,14 +9,26 @@ class PostRepository implements PostsRepositoryContract
 
     public function getAll(): array
     {
-        return $this->fetchFromApi('posts');
+        $postsData = $this->fetchFromApi('posts');
+        $posts = [];
+
+        foreach ($postsData as $postData) {
+            $post = new Post();
+            $post->id = $postData['id'];
+            $post->title = $postData['title'];
+            $post->body = $postData['body'];
+
+            $posts[] = $post;
+        }
+
+        return $posts;
     }
 
-    public function getById(int $id): ?array
+    public function getById(int $id): ?Post
     {
         $posts = $this->getAll();
         foreach ($posts as $post) {
-            if ($post['id'] === $id) {
+            if ($post->id === $id) {
                 return $post;
             }
         }

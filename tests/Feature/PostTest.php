@@ -44,9 +44,14 @@ class PostTest extends TestCase
 
     public function testShow()
     {
-
         $mockRepository = Mockery::mock(PostsRepositoryContract::class);
-        $mockRepository->shouldReceive('getById')->andReturn(['id' => 1, 'title' => 'Test Post', 'body' => 'Test Body']);
+
+        $post = new Post();
+        $post->id = 1;
+        $post->title = 'Test Post';
+        $post->body = 'Test Body';
+
+        $mockRepository->shouldReceive('getById')->andReturn($post);
 
         $postService = new PostService($mockRepository);
 
@@ -56,7 +61,7 @@ class PostTest extends TestCase
 
         $response->assertStatus(200);
 
-        $response->assertViewHas('post', ['id' => 1, 'title' => 'Test Post', 'body' => 'Test Body']);
+        $response->assertViewHas('post', $post);
     }
 
     public function testDestroy()

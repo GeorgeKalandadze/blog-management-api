@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Post;
 use App\Repositories\Contracts\PostsRepositoryContract;
 
 class PostService
@@ -17,7 +18,7 @@ class PostService
         return $this->postsRepositoryContract->getAll();
     }
 
-    public function getById(int $id): ?array
+    public function getById(int $id):  ?Post
     {
         return $this->postsRepositoryContract->getById($id);
     }
