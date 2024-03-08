@@ -33,9 +33,8 @@ class PostCachingRepositoryDecorator implements PostsRepositoryContract
 
     public function delete(int $id)
     {
-        return $this->postsRepository->delete($id);
+       $this->postsRepository->delete($id);
     }
-
 
 
     private function clearCache($key)

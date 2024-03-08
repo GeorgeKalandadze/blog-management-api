@@ -22,14 +22,14 @@ class PostRepository implements PostsRepositoryContract
         return null;
     }
 
-    public function store(array $data)
+    public function store(array $data): array
     {
         Http::post("https://jsonplaceholder.typicode.com/posts", $data);
 
         return $this->getAll();
     }
 
-    public function delete(int $id): void
+    public function delete(int $id)
     {
 
     }

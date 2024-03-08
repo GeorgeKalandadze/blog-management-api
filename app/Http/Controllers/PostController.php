@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Services\PostService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
+
 
 class PostController extends Controller
 {
@@ -15,7 +18,7 @@ class PostController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): View
     {
         $posts = $this->postService->getAll();
         return view('index', compact('posts'));
@@ -24,7 +27,7 @@ class PostController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(): View
     {
         return view('post.create');
     }
@@ -32,7 +35,7 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
         $this->postService->store($request->all());
         return response()->json('post is created');
@@ -41,7 +44,7 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show($id): View
     {
         $post = $this->postService->getById($id);
         return view('post.show', compact('post'));
@@ -66,7 +69,7 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id): JsonResponse
     {
         $this->postService->delete($id);
         return response()->json('post deleted successfully');
