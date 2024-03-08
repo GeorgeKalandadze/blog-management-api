@@ -10,13 +10,18 @@ this is the blog-library-management-api project, which is written in Laravel and
 ### Project setup
 
 ```bash
+cp .env.example .env
+```
+```bash
 composer install
+```
+```bash
+php artisan key:generate
 ```
 ```bash
 php artisan serve
 ```
 ### Running tests
-
 ```bash
 php artisan test
 ```
