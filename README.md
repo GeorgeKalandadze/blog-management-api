@@ -3,7 +3,7 @@
 
 ## About project
 
-this is the blog-library-management-api project, which is written in Laravel and uses one of the solid patterns, namely the repository pattern. The project also includes fetching data from a jsonplaceholder, rendering it, and testing the functionality.
+this is the blog-library-management-api project, which is written in Laravel and uses solid patterns such as, the Repository + Service pattern and also Decorator pattern . The project also includes fetching data from a external api using http client, rendering it, and testing the functionality.
 
 
 
