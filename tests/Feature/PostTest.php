@@ -2,11 +2,11 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
 use App\Models\Post;
-use App\Services\PostService;
 use App\Repositories\Contracts\PostsRepositoryContract;
+use App\Services\PostService;
 use Mockery;
+use Tests\TestCase;
 
 class PostTest extends TestCase
 {
@@ -36,7 +36,7 @@ class PostTest extends TestCase
         $response = $this->post('/posts', [
             'title' => 'Test Title',
             'body' => 'Test Body',
-            'userId' => 1
+            'userId' => 1,
         ]);
 
         $response->assertStatus(200);
@@ -81,4 +81,3 @@ class PostTest extends TestCase
         $response->assertExactJson(['post deleted successfully']);
     }
 }
-

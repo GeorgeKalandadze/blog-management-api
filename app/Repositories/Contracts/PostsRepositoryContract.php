@@ -11,6 +11,4 @@ interface PostsRepositoryContract
     public function store(array $data);
 
     public function delete(int $id);
-
 }
-

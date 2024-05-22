@@ -7,8 +7,7 @@ use App\Repositories\Contracts\PostsRepositoryContract;
 
 class PostService
 {
-
-    public function __construct(public PostsRepositoryContract $postsRepositoryContract)
+    public function __construct(private readonly PostsRepositoryContract $postsRepositoryContract)
     {
 
     }
@@ -18,7 +17,7 @@ class PostService
         return $this->postsRepositoryContract->getAll();
     }
 
-    public function getById(int $id):  ?Post
+    public function getById(int $id): ?Post
     {
         return $this->postsRepositoryContract->getById($id);
     }

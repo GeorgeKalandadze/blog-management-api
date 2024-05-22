@@ -7,20 +7,20 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-
 class PostController extends Controller
 {
-
     public function __construct(public PostService $postService)
     {
 
     }
+
     /**
      * Display a listing of the resource.
      */
     public function index(): View
     {
         $posts = $this->postService->getAll();
+
         return view('index', compact('posts'));
     }
 
@@ -38,6 +38,7 @@ class PostController extends Controller
     public function store(Request $request): JsonResponse
     {
         $this->postService->store($request->all());
+
         return response()->json('post is created');
     }
 
@@ -47,6 +48,7 @@ class PostController extends Controller
     public function show($id): View
     {
         $post = $this->postService->getById($id);
+
         return view('post.show', compact('post'));
     }
 
@@ -72,6 +74,7 @@ class PostController extends Controller
     public function destroy(string $id): JsonResponse
     {
         $this->postService->delete($id);
+
         return response()->json('post deleted successfully');
     }
 }
