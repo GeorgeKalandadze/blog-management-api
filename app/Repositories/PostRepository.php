@@ -43,7 +43,7 @@ class PostRepository implements PostsRepositoryContract
         return $this->getAll();
     }
 
-    public function delete(int $id)
+    public function delete(int $id): void
     {
         Http::delete("https://jsonplaceholder.typicode.com/posts/$id");
     }

@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Decorators;
 
+use App\Models\Post;
 use App\Repositories\Contracts\PostsRepositoryContract;
 use Illuminate\Support\Facades\Cache;
 
@@ -12,19 +13,19 @@ class PostCachingRepositoryDecorator implements PostsRepositoryContract
 
     }
 
-    public function getAll()
+    public function getAll(): array
     {
         return Cache::remember('posts_all', 300, function () {
             return $this->postsRepository->getAll();
         });
     }
 
-    public function getById(int $id)
+    public function getById(int $id): Post
     {
         return $this->postsRepository->getById($id);
     }
 
-    public function store(array $data)
+    public function store(array $data): array
     {
         $this->postsRepository->store($data);
         $this->clearCache('posts_all');
@@ -32,7 +33,7 @@ class PostCachingRepositoryDecorator implements PostsRepositoryContract
         return $this->getAll();
     }
 
-    public function delete(int $id)
+    public function delete(int $id): void
     {
         $this->postsRepository->delete($id);
     }

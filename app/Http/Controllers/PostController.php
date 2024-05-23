@@ -46,24 +46,22 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id): JsonResponse
-    {
-        $updated = $this->postService->update($id, $request->all());
-        if ($updated) {
-            return response()->json(['message' => 'Post updated successfully']);
-        }
-        return response()->json(['message' => 'Post not found'], 404);
-    }
+//    public function update(Request $request, $id): JsonResponse
+//    {
+//        $updated = $this->postService->update($id, $request->all());
+//        if ($updated) {
+//            return response()->json(['message' => 'Post updated successfully']);
+//        }
+//        return response()->json(['message' => 'Post not found'], 404);
+//    }
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy($id): JsonResponse
     {
-        $deleted = $this->postService->delete($id);
-        if ($deleted) {
-            return response()->json(['message' => 'Post deleted successfully']);
-        }
-        return response()->json(['message' => 'Post not found'], 404);
+        $this->postService->delete($id);
+        return response()->json(['message' => 'Post deleted successfully']);
+       
     }
 }
