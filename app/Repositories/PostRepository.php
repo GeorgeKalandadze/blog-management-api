@@ -50,7 +50,7 @@ class PostRepository implements PostsRepositoryContract
 
     private function fetchFromApi(string $endpoint): array
     {
-        $response = Http::get("https://jsonplaceholder.typicode.com/$endpoint");
+        $response = Http::withOptions(['verify' => false])->get("https://jsonplaceholder.typicode.com/$endpoint");
 
         return $response->json();
     }

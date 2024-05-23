@@ -5,31 +5,21 @@ namespace App\Http\Controllers;
 use App\Services\PostService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
 
 class PostController extends Controller
 {
-    public function __construct(public PostService $postService)
+    public function __construct(private readonly PostService $postService)
     {
-
+        //
     }
 
     /**
      * Display a listing of the resource.
      */
-    public function index(): View
+    public function index(): JsonResponse
     {
         $posts = $this->postService->getAll();
-
-        return view('index', compact('posts'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create(): View
-    {
-        return view('post.create');
+        return response()->json($posts);
     }
 
     /**
@@ -38,43 +28,42 @@ class PostController extends Controller
     public function store(Request $request): JsonResponse
     {
         $this->postService->store($request->all());
-
-        return response()->json('post is created');
+        return response()->json(['message' => 'Post created successfully']);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show($id): View
+    public function show($id): JsonResponse
     {
         $post = $this->postService->getById($id);
-
-        return view('post.show', compact('post'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        return view('post.edit');
+        if ($post) {
+            return response()->json($post);
+        }
+        return response()->json(['message' => 'Post not found'], 404);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id): JsonResponse
     {
-        //
+        $updated = $this->postService->update($id, $request->all());
+        if ($updated) {
+            return response()->json(['message' => 'Post updated successfully']);
+        }
+        return response()->json(['message' => 'Post not found'], 404);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id): JsonResponse
+    public function destroy($id): JsonResponse
     {
-        $this->postService->delete($id);
-
-        return response()->json('post deleted successfully');
+        $deleted = $this->postService->delete($id);
+        if ($deleted) {
+            return response()->json(['message' => 'Post deleted successfully']);
+        }
+        return response()->json(['message' => 'Post not found'], 404);
     }
 }
