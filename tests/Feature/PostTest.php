@@ -19,7 +19,7 @@ class PostTest extends TestCase
 
         $this->app->instance(PostService::class, $postService);
 
-        $response = $this->get('/posts');
+        $response = $this->get('/api/posts');
 
         $response->assertStatus(200);
     }
@@ -27,19 +27,20 @@ class PostTest extends TestCase
     public function testStore()
     {
         $mockRepository = Mockery::mock(PostsRepositoryContract::class);
-        $mockRepository->shouldReceive('store')->andReturn(null);
+        $mockRepository->shouldReceive('store')->andReturn([]);
 
         $postService = new PostService($mockRepository);
 
         $this->app->instance(PostService::class, $postService);
 
-        $response = $this->post('/posts', [
+        $response = $this->post('/api/posts', [
             'title' => 'Test Title',
             'body' => 'Test Body',
             'userId' => 1,
         ]);
 
         $response->assertStatus(200);
+        $response->assertExactJson(['message' => 'Post created successfully']);
     }
 
     public function testShow()
@@ -57,11 +58,10 @@ class PostTest extends TestCase
 
         $this->app->instance(PostService::class, $postService);
 
-        $response = $this->get('/posts/1');
+        $response = $this->get('/api/posts/1');
 
         $response->assertStatus(200);
 
-        $response->assertViewHas('post', $post);
     }
 
     public function testDestroy()
@@ -74,10 +74,10 @@ class PostTest extends TestCase
 
         $mockRepository->shouldReceive('delete')->once()->with('1');
 
-        $response = $this->delete('/posts/1');
+        $response = $this->delete('/api/posts/1');
 
         $response->assertStatus(200);
 
-        $response->assertExactJson(['post deleted successfully']);
+        $response->assertExactJson(['message' => 'Post deleted successfully']);
     }
 }

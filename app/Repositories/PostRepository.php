@@ -30,6 +30,7 @@ class PostRepository implements PostsRepositoryContract
         if ($postData) {
             $post = new Post();
             $post->fill($postData);
+
             return $post;
         }
 
